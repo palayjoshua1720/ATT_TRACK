@@ -1,0 +1,23 @@
+----Logic-------
+
+IF NOT EXISTS(
+	SELECT * FROM tbl_personal_info 
+	WHERE Firstname = 'Jesse' 
+	and email = 'paradero@gmail.com')
+	
+	BEGIN 
+		INSERT INTO tbl_personal_info  
+			(personal_info_id,Firstname,lastname,middlename,gender,
+			Age,birthday,email,contact_no,position_id,
+			department_id,join_date,end_date,date_added,
+			addedby_userid,date_updated,updatedby_userid)
+		VALUES('131','Jesse','Paradero','C','Male','20','05-2-2013','paradero@gmail.com',
+			'09568712','3','1','02-3-2022','08-30-2022','03-6-2023','0001','','')
+	END
+	 
+	
+/*select * from tbl_personal_info*/
+
+/*-----delete script-----*/
+
+/*delete from tbl_personal_info where personal_info_id = 121*/
