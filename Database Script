@@ -11,13 +11,21 @@ IF NOT EXISTS(
 			Age,birthday,email,contact_no,position_id,
 			department_id,join_date,end_date,date_added,
 			addedby_userid,date_updated,updatedby_userid)
+			
+			
 		VALUES('131','Jesse','Paradero','C','Male','20','05-2-2013','paradero@gmail.com',
 			'09568712','3','1','02-3-2022','08-30-2022','03-6-2023','0001','','')
 	END
 	 
-	
+/* this code is for inserting data in the database
+   if the table doesn't yet have a data inside (1st runtime code)  but if you run this again (2nd runtime) it will check if the data already existed and will not 
+   add anychanges to the database*/
+
+
 /*select * from tbl_personal_info*/
 
 /*-----delete script-----*/
 
 /*delete from tbl_personal_info where personal_info_id = 121*/
+
+
