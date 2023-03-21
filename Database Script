@@ -29,3 +29,33 @@ IF NOT EXISTS(
 /*delete from tbl_personal_info where personal_info_id = 121*/
 
 
+/*--------Sp script------ */
+//Execution after creating a workable script ///
+
+
+EXEC sp_department '2', '0927' ,'jtaw',getdate,'85716','','' <----- insert new values that you want 
+
+
+
+--------------------------------------------------------------------------------------------------------
+	
+
+CREATE PROCEDURE sp_department
+
+@deparment_id varchar (50), @department_code varchar(50), @name varchar(50), 
+@date_added varchar(50), @addedby_userid varchar(50), @date_updated varchar(50), @updatedby_userid varchar(50)
+
+AS
+
+INSERT INTO tbl_M_department
+	(department_id,department_code,name,date_added,addedby_userid,
+	date_updated,updatedby_userid)
+
+
+VALUES(@deparment_id,@department_code,@name,@date_added,@addedby_userid, @date_updated,@updatedby_userid)
+
+GO
+
+
+
+
