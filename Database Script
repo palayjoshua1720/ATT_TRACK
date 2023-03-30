@@ -58,7 +58,7 @@ GO
 
 
 
---------------------SP.credent---------- for checking if username  and password is existing if true return 1 else 0 //// NOT JASON FORMAT
+--------------------SP.credent---------- for checking if username  and password is existing if true return 1 else 0 //// NOT JSON FORMAT
 
 USE [OJT_PROFILE]
 GO
