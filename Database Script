@@ -58,7 +58,7 @@ GO
 
 
 
---------------------SP.credent---------- for checking if username  and password is existing if true return 1 else 0
+--------------------SP.credent---------- for checking if username  and password is existing if true return 1 else 0 //// NOT JASON FORMAT
 
 USE [OJT_PROFILE]
 GO
@@ -76,8 +76,8 @@ AS
 		BEGIN TRY
 			BEGIN TRANSACTION
 
-				DECLARE @_credential_id		int = null
-				DECLARE @_profile_id		int = null
+				DECLARE @_credential_id			int = null
+				DECLARE @_profile_id			int = null
 				DECLARE @_username			varchar(50) = null
 				DECLARE @_password			varchar(50) = null
 				DECLARE @_email				varchar(50) = null
@@ -87,7 +87,7 @@ AS
 				SET @_profile_id	= @profile_id
 				SET @_username		= @username
 				SET @_password		= @password
-				SET @_email			= @email
+				SET @_email		= @email
 				Set @_message		= @message
 
 				IF EXISTS(
