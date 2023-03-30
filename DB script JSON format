@@ -1,0 +1,74 @@
+
+
+
+-------- JSON FORMAT  sp_credent--------------
+
+
+USE [OJT_PROFILE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_credent]    Script Date: 3/30/2023 3:40:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE  [dbo].[sp_credent]
+	@_result			BIGINT OUTPUT,
+	@json				VARCHAR(MAX)
+AS
+	BEGIN 
+		BEGIN TRY
+			BEGIN TRANSACTION
+
+				DECLARE @_credential_id		  int			= null
+				DECLARE @_profile_id		   int			= null
+				DECLARE @_username			varchar(50) = null
+				DECLARE @_password			varchar(50) = null
+				DECLARE @_email				  varchar(50) = null
+				DECLARE @_message			  int         = null
+
+				SET @_credential_id	  = LTRIM(RTRIM(JSON_VALUE(@json, '$.credential_id')))
+				SET @_username		     = LTRIM(RTRIM(JSON_VALUE(@json, '$.username')))
+				SET @_password		    = LTRIM(RTRIM(JSON_VALUE(@json, '$.password')))
+				SET @_email			       = LTRIM(RTRIM(JSON_VALUE(@json, '$.email')))
+				SET @_profile_id	   = LTRIM(RTRIM(JSON_VALUE(@json, '$.profile_id')))
+				SET @_message		      = null
+
+				IF @_Username		= '' OR @_Username		= 'NULL' SET @_Username			= NULL
+				IF @_Password		= '' OR @_Password		= 'NULL' SET @_Password			= NULL
+
+				IF EXISTS(
+					SELECT * FROM tbl_Credentials
+					WHERE username = @_username)
+			
+					BEGIN
+						IF EXISTS(SELECT * FROM tbl_Credentials 
+						   WHERE username = @_username 
+						   AND password = @_password)
+
+							BEGIN
+								SET @_message = 1 -- If username and password is found 
+								PRINT @_message
+							END
+					END
+				ELSE
+					BEGIN
+						SET @_message = 0 -- If username Not found 
+						PRINT @_message
+					END
+			COMMIT TRANSACTION
+		END TRY
+		BEGIN CATCH
+		END CATCH
+	END
+
+
+------ Json format sp EXEC-----
+
+EXEC sp_credent NULL,'{
+						  "credential_id":"123",
+						  "profile_id":"2",
+						  "username":"earthshaker",
+						  "password":"noob",
+						  "email":"sample@gmail.com"
+					  }'
+				   
