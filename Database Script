@@ -58,4 +58,62 @@ GO
 
 
 
+--------------------SP.credent---------- for checking if username  and password is existing if true return 1 else 0
+
+USE [OJT_PROFILE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_credent]    Script Date: 3/30/2023 3:01:29 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE  [dbo].[sp_credent]
+
+@credential_id int,@profile_id int,@username varchar(50),@password varchar(50),@email varchar(50),@message varchar(50)
+
+AS
+	BEGIN 
+		BEGIN TRY
+			BEGIN TRANSACTION
+
+				DECLARE @_credential_id		int = null
+				DECLARE @_profile_id		int = null
+				DECLARE @_username			varchar(50) = null
+				DECLARE @_password			varchar(50) = null
+				DECLARE @_email				varchar(50) = null
+				DECLARE @_message			varchar(50) = null
+
+				SET @_credential_id = @credential_id
+				SET @_profile_id	= @profile_id
+				SET @_username		= @username
+				SET @_password		= @password
+				SET @_email			= @email
+				Set @_message		= @message
+
+				IF EXISTS(
+					SELECT * FROM tbl_Credentials
+					WHERE username = @_username)
+			
+					BEGIN
+						IF EXISTS(SELECT * FROM tbl_Credentials 
+						   WHERE username = @_username 
+						   AND password = @_password)
+
+							BEGIN
+								SET @_message = 1 -- If username and password is found 
+								PRINT @_message
+							END
+					END
+				ELSE
+					BEGIN
+						SET @_message = 0 -- If username Not found 
+						PRINT @_message
+					END
+			COMMIT TRANSACTION
+		END TRY
+		BEGIN CATCH
+		END CATCH
+	END
+
+
 
